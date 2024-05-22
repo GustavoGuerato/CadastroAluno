@@ -23,12 +23,12 @@ public class Disciplina {
         this.disciplina = disciplina;
     }
 
-    public double getMediaNotas(){
+    public double getMediaNotas() {
         double somaTotal = 0;
-        for (int pos = 0; pos<nota.length; pos++){
-            somaTotal +=nota[pos];
+        for (double n : nota) {
+            somaTotal += n;
         }
-        return somaTotal/4;
+        return somaTotal / nota.length;
     }
 
     @Override
@@ -36,17 +36,18 @@ public class Disciplina {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Disciplina that = (Disciplina) o;
-        return Objects.deepEquals(nota, that.nota) && Objects.equals(disciplina, that.disciplina);
+        return Arrays.equals(nota, that.nota) && Objects.equals(disciplina, that.disciplina);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Arrays.hashCode(nota), disciplina);
+        int result = Objects.hash(disciplina);
+        result = 31 * result + Arrays.hashCode(nota);
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Disciplina [nota=" + nota + ", disciplina=" + disciplina + "]";
+        return "Disciplina [nota=" + Arrays.toString(nota) + ", disciplina=" + disciplina + "]";
     }
-
 }

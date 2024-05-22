@@ -40,14 +40,32 @@ public class ArrayVector {
           if (pos ==0){
             notaMax = disc.getNota()[pos];
           }else{
-            if (disc.getNota()[pos]>notaMax){
+            if (disc.getNota()[pos]<notaMax){
               notaMax = disc.getNota()[pos];
             }
           }
+
         }
 
-        System.out.println("A maior nota da " + disc.getDisciplina() + "com o valor de " + notaMax);
+        System.out.println("A menor nota da " + disc.getDisciplina() + "com o valor de " + notaMax);
 
+      }
+
+
+      Aluno[]arrayAlunos = new Aluno[1];
+      arrayAlunos[0] = aluno;
+
+      for (int pos = 0;pos <arrayAlunos.length;pos++){
+
+        System.out.println("Nome do aluno é " + arrayAlunos[pos].getNome());
+
+        for (Disciplina d : arrayAlunos[pos].getDisciplinas()){
+          System.out.println("Nome da Disciplina " + d.getDisciplina());
+
+          for (int posnota=0;posnota<d.getNota().length;posnota++){
+            System.out.println("o valor das notas são:  " + posnota + "é igual ha " + d.getNota()[posnota]);
+          }
+        }
       }
     }
 }

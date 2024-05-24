@@ -16,6 +16,13 @@ public class Matriz {
         notas[1][2]=60;
 
 
-        System.out.println(Arrays.deepToString(notas));
+
+        for (int poslinha = 0;poslinha<notas.length; poslinha++){
+            System.out.println("====================");
+            for (int poscoluna = 0;poscoluna<notas[poslinha].length;poscoluna++){
+                System.out.println("valor da matriz: " + notas[poslinha][poscoluna]);
+            }
+        }
+
     }
 }

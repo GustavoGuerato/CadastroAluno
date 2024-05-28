@@ -2,6 +2,10 @@ package JdevCurso.cadastroAluno.thread;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class TelaTempo extends JDialog {
 
@@ -11,11 +15,27 @@ public class TelaTempo extends JDialog {
     private JTextField descriptorField = new JTextField();
     private JLabel descriptor1 = new JLabel("hora thread 2");
     private JTextField descriptorField1 = new JTextField();
+    private volatile boolean running = true;
 
     private JButton jButton = new JButton("Start");
     private JButton jButton2 = new JButton("Stop");
 
+    private Runnable thread1 = new Runnable() {
+        @Override
+        public void run() {
+            while (true){
+                descriptorField.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").
+                        format(Calendar.getInstance().getTime()));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    };
 
+    private Thread thread1Time;
 
     public TelaTempo(){
 
@@ -29,7 +49,7 @@ public class TelaTempo extends JDialog {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.insets = new Insets(5,10,5,5); 
+        gridBagConstraints.insets = new Insets(5,10,5,5);
         gridBagConstraints.anchor = gridBagConstraints.WEST;
 
         descriptor.setPreferredSize(new Dimension(200,25));
@@ -57,6 +77,21 @@ public class TelaTempo extends JDialog {
         jButton2.setPreferredSize(new Dimension(92,25));
         gridBagConstraints.gridx++;
         jPanel.add(jButton2,gridBagConstraints);
+
+        jButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                thread1Time = new Thread(thread1);
+                thread1Time.start();
+            }
+        });
+
+        jButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                running = false;
+            }
+        });
 
 
 

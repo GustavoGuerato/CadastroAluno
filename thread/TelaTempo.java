@@ -35,7 +35,24 @@ public class TelaTempo extends JDialog {
         }
     };
 
+    private Runnable thread2 = new Runnable() {
+        @Override
+        public void run() {
+            while (true){
+                descriptorField1.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").
+                        format(Calendar.getInstance().getTime()));
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+    };
+
+
     private Thread thread1Time;
+    private Thread tread2Time;
 
     public TelaTempo(){
 
@@ -83,6 +100,13 @@ public class TelaTempo extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 thread1Time = new Thread(thread1);
                 thread1Time.start();
+
+                tread2Time = new Thread(thread2);
+                tread2Time.start();
+
+
+                jButton.setEnabled(false);
+                jButton2.setEnabled(true);
             }
         });
 
@@ -90,14 +114,16 @@ public class TelaTempo extends JDialog {
             @Override
             public void actionPerformed(ActionEvent e) {
                 running = false;
+
+                jButton.setEnabled(true);
+                jButton2.setEnabled(false);
             }
         });
 
 
 
+        jButton2.setEnabled(false);
         add(jPanel, BorderLayout.WEST);
-
-
         setVisible(true);/*sempre será o ultimo*/
 
     }

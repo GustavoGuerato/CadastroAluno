@@ -14,9 +14,10 @@ public class ImplementacaoFilaThread extends Thread {
     @Override
     public void run() {
         System.out.println("algo ai");
-        Iterator interacao = pilha_fila.iterator();
+
 
         while (true) {
+            Iterator interacao = pilha_fila.iterator();
             synchronized (interacao) {
 
                 while (interacao.hasNext()) {

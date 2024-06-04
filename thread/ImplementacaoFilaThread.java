@@ -18,7 +18,7 @@ public class ImplementacaoFilaThread extends Thread {
 
         while (true) {
 
-            synchronized (interacao) {
+            synchronized (pilha_fila) {
                 Iterator interacao = pilha_fila.iterator();
                 while (interacao.hasNext()) {
                     ObjetoFilaThread processar = (ObjetoFilaThread) interacao.next();
@@ -43,6 +43,7 @@ public class ImplementacaoFilaThread extends Thread {
 
         }
     }
+
 
 
 }

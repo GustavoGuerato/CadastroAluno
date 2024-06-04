@@ -11,48 +11,15 @@ public class TelaTempo extends JDialog {
 
     private JPanel jPanel = new JPanel(new GridBagLayout());
 
-    private JLabel descriptor = new JLabel("hora thread 1");
+    private JLabel descriptor = new JLabel("Nome");
     private JTextField descriptorField = new JTextField();
-    private JLabel descriptor1 = new JLabel("hora thread 2");
+    private JLabel descriptor1 = new JLabel("Email");
     private JTextField descriptorField1 = new JTextField();
     private volatile boolean running = true;
 
-    private JButton jButton = new JButton("Start");
-    private JButton jButton2 = new JButton("Stop");
+    private JButton jButton = new JButton("Add lista");
+    private JButton jButton1 = new JButton("Stop");
 
-    private Runnable thread1 = new Runnable() {
-        @Override
-        public void run() {
-            while (true){
-                descriptorField.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").
-                        format(Calendar.getInstance().getTime()));
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    };
-
-    private Runnable thread2 = new Runnable() {
-        @Override
-        public void run() {
-            while (true){
-                descriptorField1.setText(new SimpleDateFormat("dd/MM/yyyy hh:mm.ss").
-                        format(Calendar.getInstance().getTime()));
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-    };
-
-
-    private Thread thread1Time;
-    private Thread tread2Time;
 
     public TelaTempo(){
 
@@ -91,38 +58,35 @@ public class TelaTempo extends JDialog {
         gridBagConstraints.gridy++;
         jPanel.add(jButton,gridBagConstraints);
 
-        jButton2.setPreferredSize(new Dimension(92,25));
+        jButton1.setPreferredSize(new Dimension(92,25));
         gridBagConstraints.gridx++;
-        jPanel.add(jButton2,gridBagConstraints);
+        jPanel.add(jButton1,gridBagConstraints);
 
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                thread1Time = new Thread(thread1);
-                thread1Time.start();
+                ObjetoFilaThread filaThread = new ObjetoFilaThread();
+                filaThread.setNome(descriptor.getText());
+                filaThread.setEmail(descriptor1.getText());
 
-                tread2Time = new Thread(thread2);
-                tread2Time.start();
+                filaThread.add(filaThread);
 
 
-                jButton.setEnabled(false);
-                jButton2.setEnabled(true);
             }
         });
 
-        jButton2.addActionListener(new ActionListener() {
+        jButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                running = false;
 
-                jButton.setEnabled(true);
-                jButton2.setEnabled(false);
+
+
             }
         });
 
 
-
-        jButton2.setEnabled(false);
+        ImplementacaoFilaThread fila = new ImplementacaoFilaThread();
+        fila.start();
         add(jPanel, BorderLayout.WEST);
         setVisible(true);/*sempre será o ultimo*/
 

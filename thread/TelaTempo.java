@@ -65,11 +65,16 @@ public class TelaTempo extends JDialog {
         jButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ObjetoFilaThread filaThread = new ObjetoFilaThread();
-                filaThread.setNome(descriptor.getText());
-                filaThread.setEmail(descriptor1.getText());
 
-                filaThread.add(filaThread);
+                for (int qtd = 0; qtd <100; qtd++){
+                    ObjetoFilaThread filaThread = new ObjetoFilaThread();
+                    filaThread.setNome(descriptor.getText());
+                    filaThread.setEmail(descriptor1.getText());
+
+                    filaThread.add(filaThread);
+                }
+
+
 
 
             }

@@ -17,9 +17,9 @@ public class ImplementacaoFilaThread extends Thread {
 
 
         while (true) {
-            Iterator interacao = pilha_fila.iterator();
-            synchronized (interacao) {
 
+            synchronized (interacao) {
+                Iterator interacao = pilha_fila.iterator();
                 while (interacao.hasNext()) {
                     ObjetoFilaThread processar = (ObjetoFilaThread) interacao.next();
 
